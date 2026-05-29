@@ -1,95 +1,135 @@
-
-# CMDTA: Cross-Modal Deep Learning Framework for Drug-Target Affinity Prediction
+# HelixDTA: Full-length Protein Sequence-Structure Learning for Drug-Target Affinity Prediction
 
 ![Python 3.8](https://img.shields.io/badge/Python-3.8.20-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.4.1%2Bcu124-EE4C2C.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-**CMDTA** is a novel, advanced deep learning framework designed for accurately predicting Drug-Target Affinity (DTA). By uniquely leveraging both **1D sequence information** (SMILES for drugs, amino acid sequences for proteins) and **3D structural information** (ligand 2D graphs and protein 3D pockets) through a parallel dual-path architecture, CMDTA provides a comprehensive and precise model of drug-target interactions.
+**HelixDTA** is a dual-branch deep learning framework for drug-target affinity (DTA) prediction. The model integrates sequence context with full-length protein structural representations, allowing drug-target interactions to be modeled from complementary chemical and biological views. HelixDTA uses drug SMILES strings and protein amino-acid sequences as primary inputs, derives drug molecular graphs and protein residue graphs, and fuses sequence- and structure-aware representations for continuous affinity prediction.
 
-## 🧬 Framework Architecture
-CMDTA extracts multi-scale features using cutting-edge graph and sequence neural networks:
-- **1D Sequence Path:** Utilizes Bidirectional LSTMs enhanced with Residual Attention mechanisms to capture contextual dependencies in drug SMILES and protein sequences.
-- **2D/3D Structural Path:** Employs Graph Isomorphism Networks (GIN) for 2D molecular graphs of drugs and Geometric Vector Perceptrons (GVP) to rigorously model the 3D atomic coordinates of protein binding pockets.
-- **Cross-Modal Fusion:** A carefully designed fully connected neural network integrates textual and structural embeddings to output highly accurate continuous affinity values (e.g., Kd, Ki).
+HelixDTA is designed for robust DTA modeling across benchmark datasets and for structure-aware candidate prioritization in target-focused drug discovery workflows.
 
-![CMDTA Framework](CMDTA_Framework.png)
+## Framework Overview
 
-## 📁 Repository Structure
+HelixDTA learns complementary representations from sequence and structural modalities through a parallel architecture:
+
+- **Sequence branch:** Encodes drug SMILES strings and protein amino-acid sequences using bidirectional LSTM layers enhanced with residual attention modules.
+- **Structure branch:** Encodes drug molecular graphs with graph neural networks and full-length protein residue graphs with geometric vector perceptron (GVP)-based structural encoders.
+- **Representation fusion:** Combines sequence-derived and structure-derived embeddings through fully connected prediction layers to estimate continuous affinity values.
+- **Interpretability support:** Uses attention-based visualization to highlight molecular regions that contribute to affinity prediction.
+
+![HelixDTA framework](HelixDTA.png)
+
+## Repository Structure
 
 ```text
-CMDTA/
-├── Dataset/             # Directory for placing Davis and KIBA datasets (CSV and PDB files)
-├── Model/               # Directory where trained model checkpoints (.pt) are saved
-├── Vocab/               # Pre-built vocabulary files (.pkl) for tokenizing SMILES and Proteins
-├── gvp/                 # Source code for Geometric Vector Perceptron (GVP) modules
-├── build_vocab.py       # Script for building natural language vocabularies
-├── dataset.py           # Custom PyTorch Geometric Dataset classes for handling multi-modal data
-├── main.py              # Main script for training, evaluation, and logging
-├── model.py             # Model architecture definitions (CMDTA, GINConv, SeqEncoder)
-├── utils.py             # Helper functions for data parsing, graph extraction, and metrics
-└── README.md
-````
-
-## 🛠️ Installation & Setup
-
-We recommend using [Anaconda](https://www.anaconda.com/) or Miniconda to manage your environment.
-
-**1. Clone the repository:**
-
-```bash
-git clone [https://github.com/slouoo/CMDTA.git](https://github.com/slouoo/CMDTA.git)
-cd CMDTA
+HelixDTA/
+|-- Dataset/             # Davis/KIBA datasets and protein structure files
+|-- Model/               # Trained model checkpoints (.pt)
+|-- Vocab/               # Vocabulary files (.pkl) for SMILES and protein sequences
+|-- gvp/                 # Geometric Vector Perceptron modules
+|-- build_vocab.py       # Vocabulary construction script
+|-- dataset.py           # PyTorch Geometric dataset classes
+|-- main.py              # Training, evaluation, and logging entry point
+|-- model.py             # HelixDTA model architecture
+|-- utils.py             # Data parsing, graph construction, and evaluation utilities
+`-- README.md
 ```
 
-**2. Create and activate a conda environment:**
+## Installation
+
+We recommend using Anaconda or Miniconda to manage the environment.
+
+### 1. Clone the repository
 
 ```bash
-conda create -n cmdta python=3.8.20
-conda activate cmdta
+git clone https://github.com/slouoo/HelixDTA.git
+cd HelixDTA
 ```
 
-**3. Install dependencies:**
+### 2. Create and activate a conda environment
 
 ```bash
-pip install torch==2.4.1+cu124 --extra-index-url [https://download.pytorch.org/whl/cu124](https://download.pytorch.org/whl/cu124)
+conda create -n helixdta python=3.8.20
+conda activate helixdta
+```
+
+### 3. Install dependencies
+
+```bash
+pip install torch==2.4.1+cu124 --extra-index-url https://download.pytorch.org/whl/cu124
 pip install torch-geometric==2.6.1 torch-cluster==1.6.3 torch-scatter==2.1.2 torch-sparse==0.6.18
 pip install scikit-learn==1.3.2 scipy==1.10.1 pandas==2.0.3 networkx==3.1 atom3d==0.2.6
 pip install rdkit==2022.9.5
 ```
 
-## 📊 Dataset Preparation
+## Dataset Preparation
 
-The model is evaluated on two standard benchmark datasets: **Davis** and **KIBA**. Due to file size constraints, the cleaned datasets and the target 3D structures (PDB files) are hosted externally.
+HelixDTA is evaluated on two standard DTA benchmark datasets:
 
-1.  Download the datasets from our [Google Cloud Drive](https://drive.google.com/file/d/1osd9GRS1itQUi8e3NzBlZdnndllfIGxV/view?usp=sharing).
-2.  Extract the downloaded archive.
-3.  Place the sequence CSV files (e.g., `kiba_dataset_cleaned.csv` or `davis_dataset_cleaned.csv`) in the root directory.
-4.  Place the 3D structure files in the corresponding `Dataset/<dataset_name>/protein/` directories.
+- **Davis**
+- **KIBA**
 
-## 🚀 Training and Evaluation
+The cleaned benchmark files and protein structure files are hosted externally because of file size constraints.
 
-You can train the CMDTA model by running the `main.py` script. The script performs k-fold style runs across multiple random seeds to ensure robust evaluation.
+1. Download the prepared data archive from Google Drive:
+   [https://drive.google.com/file/d/1osd9GRS1itQUi8e3NzBlZdnndllfIGxV/view?usp=sharing](https://drive.google.com/file/d/1osd9GRS1itQUi8e3NzBlZdnndllfIGxV/view?usp=sharing)
+2. Extract the archive.
+3. Place the cleaned dataset files, such as `davis_dataset_cleaned.csv` and `kiba_dataset_cleaned.csv`, in the project root directory or in the expected dataset path defined in `main.py`.
+4. Place protein structure files in the corresponding dataset folders, for example:
+
+```text
+Dataset/
+|-- davis/
+|   `-- protein/
+`-- kiba/
+    `-- protein/
+```
+
+## Training and Evaluation
+
+Run the main training script:
 
 ```bash
 python main.py
 ```
 
-**Configurations (editable in `main.py`):**
+The main configurable options are defined in `main.py`:
 
-  - `dataset_name`: Choose between `'kiba'` or `'davis'`.
-  - `LR`: Learning rate (default: 1e-3).
-  - `batch_size`: Default is 64.
-  - `NUM_EPOCHS`: Default is 200 (includes early stopping).
+- `dataset_name`: choose `davis` or `kiba`
+- `LR`: learning rate, default `1e-3`
+- `batch_size`: default `64`
+- `NUM_EPOCHS`: default `200`, with early stopping
 
-**Outputs:**
+## Outputs
 
-  - **Model Checkpoints:** Saved in the `./Model/` directory (e.g., `best_model_kiba_seed42.pt`).
-  - **Evaluation Metrics:** A summary CSV file (e.g., `kiba_result_nf.csv`) will be generated containing the Mean Squared Error (MSE), Concordance Index (CI), and $r_m^2$ metrics across all random seeds.
+Training and evaluation generate:
 
-## 📄 License
+- **Model checkpoints:** saved in `./Model/`, for example `best_model_kiba_seed42.pt`
+- **Evaluation summaries:** CSV files reporting mean squared error (MSE), concordance index (CI), and `rm2` metrics across random seeds
 
-This project is licensed under the terms of the [MIT License](https://www.google.com/search?q=LICENSE).
+Example output files:
 
+```text
+Model/best_model_davis_seed42.pt
+Model/best_model_kiba_seed42.pt
+davis_result_nf.csv
+kiba_result_nf.csv
 ```
+
+## Reproducibility Notes
+
+For fair comparison, please use the same preprocessing, dataset splits, and evaluation metrics described in the associated manuscript and Supporting Information. The reported benchmark results are based on repeated runs across random seeds and are evaluated using MSE, CI, and `rm2`.
+
+## Citation
+
+If you use HelixDTA in your research, please cite the associated manuscript:
+
+```text
+HelixDTA: Full-length protein sequence-structure learning for robust drug-target affinity prediction.
 ```
+
+The full citation will be updated after publication.
+
+## License
+
+This project is released under the MIT License. See the `LICENSE` file for details.
