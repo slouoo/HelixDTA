@@ -125,7 +125,7 @@ For fair comparison, please use the same preprocessing, dataset splits, and eval
 If you use HelixDTA in your research, please cite the associated manuscript:
 
 ```text
-HelixDTA: Full-length protein sequence-structure learning for robust drug-target affinity prediction.
+HelixDTA: Dual-branch sequence–structure learning with complete target structures for robust and interpretable drug–target affinity prediction.
 ```
 
 The full citation will be updated after publication.
