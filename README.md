@@ -1,4 +1,4 @@
-# HelixDTA: Full-length sequence–structure learning for robust and interpretable drug–target affinity prediction
+# HelixDTA: Dual-branch sequence–structure learning with complete target structures for robust and interpretable drug–target affinity prediction
 
 ![Python 3.8](https://img.shields.io/badge/Python-3.8.20-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.4.1%2Bcu124-EE4C2C.svg)
