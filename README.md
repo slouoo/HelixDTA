@@ -128,9 +128,6 @@ If you use HelixDTA in your research, please cite our paper published in the Jou
 ```text
 Lou S, Li X, Peng Y, et al. HelixDTA: Dual-Branch Sequence–Structure Learning with Complete Target Structures for Robust and Interpretable Drug–Target Affinity Prediction. Journal of Chemical Information and Modeling. 2026. doi:10.1021/acs.jcim.6c01759.
 ```
-## BibTeX
-
-@article{lou2026helixdta, title={HelixDTA: Dual-Branch Sequence--Structure Learning with Complete Target Structures for Robust and Interpretable Drug--Target Affinity Prediction}, author={Lou, Shang and Li, Xuhua and Peng, Yujie and Yuan, Yuan and Peng, Bo and Yi, Yingyu and Zhang, Xuchao and Zhao, Hailong and Wang, Beilei and Li, Kun and Qian, Hong and Ren, Tao and Gu, Hongcang and Zhang, Fan}, journal={Journal of Chemical Information and Modeling}, year={2026}, doi={10.1021/acs.jcim.6c01759} }
 
 ## License
 
