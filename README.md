@@ -1,4 +1,4 @@
-# HelixDTA: Dual-branch sequence–structure learning with complete target structures for robust and interpretable drug–target affinity prediction
+# HelixDTA: Dual-Branch Sequence–Structure Learning with Complete Target Structures for Robust and Interpretable Drug–Target Affinity Prediction
 
 ![Python 3.8](https://img.shields.io/badge/Python-3.8.20-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.4.1%2Bcu124-EE4C2C.svg)
@@ -7,6 +7,8 @@
 **HelixDTA** is a dual-branch deep learning framework for drug-target affinity (DTA) prediction. The model integrates sequence context with full-length protein structural representations, allowing drug-target interactions to be modeled from complementary chemical and biological views. HelixDTA uses drug SMILES strings and protein amino-acid sequences as primary inputs, derives drug molecular graphs and protein residue graphs, and fuses sequence- and structure-aware representations for continuous affinity prediction.
 
 HelixDTA is designed for robust DTA modeling across benchmark datasets and for structure-aware candidate prioritization in target-focused drug discovery workflows.
+
+The work has been published in the Journal of Chemical Information and Modeling (JCIM).
 
 ## Framework Overview
 
@@ -122,12 +124,13 @@ For fair comparison, please use the same preprocessing, dataset splits, and eval
 
 ## Citation
 
-If you use HelixDTA in your research, please cite the associated manuscript:
-
+If you use HelixDTA in your research, please cite our paper published in the Journal of Chemical Information and Modeling:
 ```text
 Lou S, Li X, Peng Y, et al. HelixDTA: Dual-Branch Sequence–Structure Learning with Complete Target Structures for Robust and Interpretable Drug–Target Affinity Prediction. Journal of Chemical Information and Modeling. 2026. doi:10.1021/acs.jcim.6c01759.
 ```
+## BibTeX
 
+@article{lou2026helixdta, title={HelixDTA: Dual-Branch Sequence--Structure Learning with Complete Target Structures for Robust and Interpretable Drug--Target Affinity Prediction}, author={Lou, Shang and Li, Xuhua and Peng, Yujie and Yuan, Yuan and Peng, Bo and Yi, Yingyu and Zhang, Xuchao and Zhao, Hailong and Wang, Beilei and Li, Kun and Qian, Hong and Ren, Tao and Gu, Hongcang and Zhang, Fan}, journal={Journal of Chemical Information and Modeling}, year={2026}, doi={10.1021/acs.jcim.6c01759} }
 
 ## License
 
