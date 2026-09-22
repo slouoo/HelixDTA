@@ -125,10 +125,9 @@ For fair comparison, please use the same preprocessing, dataset splits, and eval
 If you use HelixDTA in your research, please cite the associated manuscript:
 
 ```text
-HelixDTA: Dual-branch sequence–structure learning with complete target structures for robust and interpretable drug–target affinity prediction.
+Lou S, Li X, Peng Y, et al. HelixDTA: Dual-Branch Sequence–Structure Learning with Complete Target Structures for Robust and Interpretable Drug–Target Affinity Prediction. Journal of Chemical Information and Modeling. 2026. doi:10.1021/acs.jcim.6c01759.
 ```
 
-The full citation will be updated after publication.
 
 ## License
 
